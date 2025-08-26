@@ -77,7 +77,7 @@ const Player = () => {
                                                                                         {lecture.lectureUrl
                                                                                          && <p
                                                                                         onClick={()=>setPlayerData({
-                                                                                            ...lecture, chapter: index + 1,lecture: i + 1
+                                                                                            ...lecture, chapter: index + 1,lecture: idx + 1
                                                                                         })} 
                                                                                          className='text-blue-500 cursor-pointer'>Watch</p>}
                                                                                         <p>{humanizeDuration(lecture.lectureDuration * 60 * 1000, {units: ['h','m']})}</p>

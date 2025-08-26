@@ -12,6 +12,7 @@ import AddCoures from './pages/Teacher/AddCoures';
 import MyCourses from './pages/Teacher/MyCourses';
 import StudentEnrolled from './pages/Teacher/StudentEnrolled';
 import Navbar from './components/student/Navbar';
+import "quill/dist/quill.snow.css";
 
 
 function App() {
