@@ -27,6 +27,35 @@ const AddCoures = () => {
         isPreviewFree: false,
     })
 
+
+    const handleChapter = (action,chapterId)=>{
+
+        if(action == 'add'){
+            const title = prompt('Enter the chapter name:')
+            if(title){
+                const newChapter = {
+                    chapterId: uniqid(),
+                    chapterTitle: title,
+                    chapterContent: [],
+                    collapsed: false,
+                    chapterOrder : chapter.length > 0 ? chapter.slice(-1)[0].chapterOrder + 1 : 1, 
+
+                }
+
+                setChapter([...chapter,newChapter])
+            }
+
+        } else if(action =='remove'){
+            setChapter(chapter.filter((chapters)=> chapters.chapterId !== chapterId))
+        } else if(action == 'toggle'){
+            setChapter(
+                chapter.map((chapters)=> chapters.chapterId == chapterId ? {...chapters,collapsed:!chapters.collapsed} : chapters)
+            )
+
+        }
+
+    }
+
 useEffect(()=>{
     if(!quillRef.current && editorRef.current){
         quillRef.current = new Quill(editorRef.current,{
@@ -114,7 +143,7 @@ useEffect(()=>{
                         ))
                     }
 
-                    <div className='flex justify-center items-center bg-blue-100 p-2 rounded-lg cursor-pointer'>
+                    <div className='flex justify-center items-center bg-blue-100 p-2 rounded-lg cursor-pointer' onClick={()=> handleChapter('add')}>
                          + Add Chapter
                     </div>
 
@@ -124,12 +153,40 @@ useEffect(()=>{
                                 <div className='bg-white text-gray-700 p-4 rounded relative w-full max-w-80'>
                                     <h2 className='text-lg font-semibold mb-4'>Add Lecture</h2>
 
+                                    <div className='mb-2'>
+                                        <p>Lecture Title</p>
+                                        <input className='mt-1 block w-full border rounded py-1 px-2' value={lectureDetails.lectureTitle} onClick={e => setLectureDetails({...lectureDetails,lectureTitle: e.target.value})} type="text" />
+                                    </div>
+                                    <div className='mb-2'>
+                                        <p>Duration (minutes)</p>
+                                        <input className='mt-1 block w-full border rounded py-1 px-2' value={lectureDetails.lectureDuration} onClick={e => setLectureDetails({...lectureDetails,lectureDuration: e.target.value})} type="number" />
+                                    </div>
+
+                                    <div className='mb-2'>
+                                        <p>Lecture Url</p>
+                                        <input className='mt-1 block w-full border rounded py-1 px-2' value={lectureDetails.lectureUrl} onClick={e => setLectureDetails({...lectureDetails,lectureUrl: e.target.value})} type="text" />
+                                    </div>
+
+                                    <div className='flex gap-2 my-4'>
+                                        <p>Is Preview Free?</p>
+                                        <input type="checkbox" className='mt-1 scale-125' checked={lectureDetails.isPreviewFree}
+                                        onChange={e => setLectureDetails({...lectureDetails,isPreviewFree: e.target.checked})} />
+                                    </div>
+
+                                    <button className='w-full bg-blue-400 text-white px-4 py-2 rounded' type='button'>Add</button>
+
+                                    <img onClick={()=> showPopup(false)} className='absolute top-4 right-4 w-4 cursor-pointer' src={assets.cross_icon} alt="" />
+
                                 </div>
 
                             </div>
                         )
                     }
                 </div>
+
+                <button type='submit' className='bg-black text-white w-max py-2.5 px-8 rounded my-4'>
+                    ADD
+                </button>
             </form>
            
         </div>
