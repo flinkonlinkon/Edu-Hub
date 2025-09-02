@@ -204,6 +204,14 @@ import Quill from 'quill';
 import React, { useEffect, useRef, useState } from 'react';
 import uniqid from 'uniqid';
 import { assets } from '../../assets/assets';
+import { useNavigate } from "react-router-dom";
+
+const handleSubmit = (e) => {
+  e.preventDefault()
+
+  navigate("/");
+
+}
 
 const AddCoures = () => {
   const quillRef = useRef(null);
@@ -556,12 +564,17 @@ const AddCoures = () => {
           )}
         </div>
 
-        <button
+<form onSubmit={handleSubmit}>
+
+    <button
+
           type="submit"
           className="bg-black text-white w-max py-2.5 px-8 rounded my-4"
         >
           ADD
         </button>
+</form>
+        
       </form>
     </div>
   );
